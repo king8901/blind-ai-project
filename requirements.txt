@@ -3,5 +3,5 @@ transformers
 gTTS
 streamlit-webrtc
 opencv-python-headless
-torch
-torchvision
+torch --index-url https://pytorch.org
+torchvision --index-url https://pytorch.org
