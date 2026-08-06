@@ -1,7 +1,6 @@
 ultralytics
 transformers
 gTTS
-streamlit-webrtc
-opencv-python-headless
 torch --index-url https://pytorch.org
 torchvision --index-url https://pytorch.org
+pillow
