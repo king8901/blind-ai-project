@@ -1,0 +1,7 @@
+ultralytics
+transformers
+gTTS
+streamlit-webrtc
+opencv-python-headless
+torch
+torchvision
