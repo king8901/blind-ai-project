@@ -1,7 +1,0 @@
-streamlit
-opencv-python-headless
-ultralytics
-gTTS
-pillow
-torch --index-url https://pytorch.org
-torchvision --index-url https://pytorch.org
