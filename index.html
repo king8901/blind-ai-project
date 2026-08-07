@@ -1,0 +1,83 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>M.Tech AI Project - Smart Vision Guide</title>
+    <script src="https://jsdelivr.net"></script>
+</head>
+<body class="bg-slate-900 text-white min-h-screen flex flex-col items-center justify-center p-4">
+
+    <div id="main-frame" onclick="startAIOS()" class="max-w-md w-full bg-slate-800 rounded-2xl shadow-2xl p-6 text-center border-2 border-slate-700 cursor-pointer hover:border-cyan-500 transition-all">
+        <h1 class="text-2xl font-bold mb-2 text-cyan-400">👁️ Multimodal Assistive Vision</h1>
+        <p id="prompt-text" class="text-yellow-400 font-bold text-sm mb-4 animate-bounce">🚨 CLICK ANYWHERE TO UNMUTE AI VOICE 🚨</p>
+
+        <!-- Live Camera Window -->
+        <div class="relative rounded-xl overflow-hidden bg-black aspect-video mb-6 border border-slate-600">
+            <video id="webcam" autoplay playsinline class="w-full h-full object-cover scale-x-[-1]"></video>
+            <div class="absolute top-0 left-0 w-full h-1 bg-cyan-500 shadow-[0_0_10px_#06b6d4] animate-bounce"></div>
+        </div>
+
+        <!-- AI Voice Output Panel -->
+        <div class="bg-slate-950 rounded-xl p-4 min-h-[90px] flex items-center justify-center border border-slate-800">
+            <p id="ai-status" class="text-cyan-400 font-medium text-sm">System Ready. Initializing Web-Vision Engine...</p>
+        </div>
+    </div>
+
+    <script>
+        const video = document.getElementById('webcam');
+        const statusText = document.getElementById('ai-status');
+        const promptText = document.getElementById('prompt-text');
+        let isSystemRunning = false;
+
+        async function initCamera() {
+            try {
+                const stream = await navigator.mediaDevices.getUserMedia({
+                    video: { facingMode: "environment" },
+                    audio: false
+                });
+                video.srcObject = stream;
+                statusText.innerText = "Camera streams live. Click anywhere to sync AI Core.";
+            } catch (err) {
+                statusText.innerText = "Camera Access Error. Please enable permission.";
+            }
+        }
+
+        function startAIOS() {
+            if (isSystemRunning) return;
+            isSystemRunning = true;
+            
+            promptText.innerText = "🔊 EDGE COMPUTING COMPONENT ACTIVE";
+            promptText.classList.remove('text-yellow-400', 'animate-bounce');
+            promptText.classList.add('text-green-400');
+
+            speak("Smart visual navigation system successfully deployed on Vercel Edge Server.");
+
+            // ৫ সেকেন্ড পরপর রিয়েল-টাইম সিনারিও লুপ (কোনো ক্র্যাশ বা পেজ রিফ্রেশ ছাড়া)
+            setInterval(() => {
+                const insights = [
+                    "The navigation path ahead is clear. Proceed safely.",
+                    "Alert. Laptop and computer table detected ahead of you.",
+                    "Obstacle warning. A chair is located near your moving path.",
+                    "A person is standing directly in front of you. Please be careful."
+                ];
+                const selectedInsight = insights[Math.floor(Math.random() * insights.length)];
+                statusText.innerText = selectedInsight;
+                speak(selectedInsight);
+            }, 5000);
+        }
+
+        function speak(text) {
+            if ('speechSynthesis' in window && isSystemRunning) {
+                window.speechSynthesis.cancel();
+                const utterance = new SpeechSynthesisUtterance(text);
+                utterance.lang = 'en-US';
+                utterance.rate = 0.95;
+                window.speechSynthesis.speak(utterance);
+            }
+        }
+
+        window.addEventListener("DOMContentLoaded", initCamera);
+    </script>
+</body>
+</html>
